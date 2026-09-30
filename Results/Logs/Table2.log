@@ -1,0 +1,1351 @@
+---------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /Users/yunlongshi/Downloads/3-replication-package/Results/Logs/Table2.log
+  log type:  text
+ opened on:  29 Sep 2026, 23:44:42
+
+. noi di c(current_time)
+23:44:42
+
+. 
+. 
+. use "${int_data}/TFPpooled.dta", clear
+
+. 
+.         
+. ********************************************************************************
+. **              PANEL A) Blundell-Bond pooled without ANCOVA controls   
+. 
+. 
+. eststo clear
+
+. 
+. eststo: reghdfe ln_TFP_BB treated, absorb(interact ghindustry slindustry) cluster(sheno)
+(MWFE estimator converged in 4 iterations)
+
+HDFE Linear regression                            Number of obs   =      4,777
+Absorbing 3 HDFE groups                           F(   1,   1113) =       3.29
+Statistics robust to heteroskedasticity           Prob > F        =     0.0702
+                                                  R-squared       =     0.1436
+                                                  Adj R-squared   =     0.1396
+                                                  Within R-sq.    =     0.0019
+Number of clusters (sheno)   =      1,114         Root MSE        =     0.6563
+
+                              (Std. err. adjusted for 1,114 clusters in sheno)
+------------------------------------------------------------------------------
+             |               Robust
+   ln_TFP_BB | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+     treated |   .0597865   .0329827     1.81   0.070    -.0049289    .1245018
+       _cons |  -.0294239   .0223298    -1.32   0.188    -.0732371    .0143893
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+    interact |        11           0          11     |
+  ghindustry |         8           2           6     |
+  slindustry |         7           2           5    ?|
+-----------------------------------------------------+
+? = number of redundant parameters may be higher
+(est1 stored)
+
+.                 global  FirmCount = e(N_clust)
+
+. 
+. eststo: qreg2 ln_TFP_BB treated cy* ind* ind*, cluster(sheno) q(0.2)
+note: cy11 omitted because of collinearity.
+note: indgh1 omitted because of collinearity.
+note: indgh8 omitted because of collinearity.
+note: indsl1 omitted because of collinearity.
+note: indsl7 omitted because of collinearity.
+note: indgh1 omitted because of collinearity.
+note: indgh2 omitted because of collinearity.
+note: indgh3 omitted because of collinearity.
+note: indgh4 omitted because of collinearity.
+note: indgh5 omitted because of collinearity.
+note: indgh6 omitted because of collinearity.
+note: indgh7 omitted because of collinearity.
+note: indgh8 omitted because of collinearity.
+note: indsl1 omitted because of collinearity.
+note: indsl2 omitted because of collinearity.
+note: indsl3 omitted because of collinearity.
+note: indsl4 omitted because of collinearity.
+note: indsl5 omitted because of collinearity.
+note: indsl6 omitted because of collinearity.
+note: indsl7 omitted because of collinearity.
+
+.2 Quantile regression
+R-squared = .13334515
+Number of obs = 4777
+Objective function = .18888137
+
+Standard errors adjusted for 1114 clusters in sheno
+------------------------------------------------------------------------------
+   ln_TFP_BB | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+     treated |   .0178308   .0434588     0.41   0.682    -.0673686    .1030303
+         cy1 |  -.4353505   .0939467    -4.63   0.000    -.6195295   -.2511715
+         cy2 |  -.3523629   .0916191    -3.85   0.000    -.5319788    -.172747
+         cy3 |  -.3512483   .0859366    -4.09   0.000    -.5197237   -.1827728
+         cy4 |  -.3228602   .0870633    -3.71   0.000    -.4935446   -.1521759
+         cy5 |   -.345411   .0902671    -3.83   0.000    -.5223763   -.1684457
+         cy6 |  -.3403241   .1059583    -3.21   0.001    -.5480515   -.1325967
+         cy7 |    -.30472    .093845    -3.25   0.001    -.4886996   -.1207404
+         cy8 |   .0100453   .0492799     0.20   0.838    -.0865662    .1066569
+         cy9 |   .0463931    .048295     0.96   0.337    -.0482876    .1410737
+        cy10 |   .0827058   .0445259     1.86   0.063    -.0045855    .1699972
+        cy11 |          0  (omitted)
+      indgh1 |          0  (omitted)
+      indgh2 |   .1385029   .0669585     2.07   0.039     .0072332    .2697726
+      indgh3 |   .2163148   .0910795     2.38   0.018     .0377568    .3948728
+      indgh4 |  -.6654077   .1015722    -6.55   0.000    -.8645363   -.4662791
+      indgh5 |   .0206455   .0899818     0.23   0.819    -.1557606    .1970516
+      indgh6 |  -.4318309   .0773986    -5.58   0.000     -.583568   -.2800938
+      indgh7 |  -.2059746   .1006502    -2.05   0.041    -.4032956   -.0086536
+      indgh8 |          0  (omitted)
+      indsl1 |          0  (omitted)
+      indsl2 |   .6051624   .0949334     6.37   0.000      .419049    .7912758
+      indsl3 |   .6365924   .1119755     5.69   0.000     .4170685    .8561163
+      indsl4 |   .8886304   .2733106     3.25   0.001     .3528151    1.424446
+      indsl5 |   -.050359   .1305846    -0.39   0.700    -.3063653    .2056473
+      indsl6 |   .4985404   .1086615     4.59   0.000     .2855135    .7115674
+      indsl7 |          0  (omitted)
+      indgh1 |          0  (omitted)
+      indgh2 |          0  (omitted)
+      indgh3 |          0  (omitted)
+      indgh4 |          0  (omitted)
+      indgh5 |          0  (omitted)
+      indgh6 |          0  (omitted)
+      indgh7 |          0  (omitted)
+      indgh8 |          0  (omitted)
+      indsl1 |          0  (omitted)
+      indsl2 |          0  (omitted)
+      indsl3 |          0  (omitted)
+      indsl4 |          0  (omitted)
+      indsl5 |          0  (omitted)
+      indsl6 |          0  (omitted)
+      indsl7 |          0  (omitted)
+       _cons |  -.5213265   .0549885    -9.48   0.000    -.6291294   -.4135235
+------------------------------------------------------------------------------
+
+Parente-Santos Silva test for intra-cluster correlation
+         Ho: No intra-cluster correlation
+
+            T   =  32.327
+         P>|T|  =   0.000
+(est2 stored)
+
+.                 estadd scalar N_clust = $FirmCount
+
+added scalar:
+            e(N_clust) =  1114
+
+.                 
+. eststo: qreg2 ln_TFP_BB treated cy* ind* ind*, cluster(sheno) q(0.4)
+note: cy11 omitted because of collinearity.
+note: indgh1 omitted because of collinearity.
+note: indgh8 omitted because of collinearity.
+note: indsl1 omitted because of collinearity.
+note: indsl7 omitted because of collinearity.
+note: indgh1 omitted because of collinearity.
+note: indgh2 omitted because of collinearity.
+note: indgh3 omitted because of collinearity.
+note: indgh4 omitted because of collinearity.
+note: indgh5 omitted because of collinearity.
+note: indgh6 omitted because of collinearity.
+note: indgh7 omitted because of collinearity.
+note: indgh8 omitted because of collinearity.
+note: indsl1 omitted because of collinearity.
+note: indsl2 omitted because of collinearity.
+note: indsl3 omitted because of collinearity.
+note: indsl4 omitted because of collinearity.
+note: indsl5 omitted because of collinearity.
+note: indsl6 omitted because of collinearity.
+note: indsl7 omitted because of collinearity.
+
+.4 Quantile regression
+R-squared = .13906929
+Number of obs = 4777
+Objective function = .25343433
+
+Standard errors adjusted for 1114 clusters in sheno
+------------------------------------------------------------------------------
+   ln_TFP_BB | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+     treated |   .0778203   .0403901     1.93   0.054     -.001363    .1570036
+         cy1 |  -.4219416   .1310799    -3.22   0.001    -.6789189   -.1649643
+         cy2 |  -.4131663   .1164218    -3.55   0.000    -.6414071   -.1849256
+         cy3 |  -.4359732   .1122607    -3.88   0.000    -.6560561   -.2158903
+         cy4 |  -.4083624   .1113895    -3.67   0.000    -.6267375   -.1899874
+         cy5 |  -.4071869   .1001753    -4.06   0.000    -.6035769    -.210797
+         cy6 |  -.4280274   .1021085    -4.19   0.000    -.6282073   -.2278475
+         cy7 |  -.4238766    .110794    -3.83   0.000    -.6410842    -.206669
+         cy8 |  -.0021976   .0428968    -0.05   0.959    -.0862952       .0819
+         cy9 |   .0032239   .0413895     0.08   0.938    -.0779188    .0843665
+        cy10 |   .0232798   .0378859     0.61   0.539    -.0509941    .0975538
+        cy11 |          0  (omitted)
+      indgh1 |          0  (omitted)
+      indgh2 |   .1308424   .0703517     1.86   0.063    -.0070794    .2687643
+      indgh3 |   .1336712   .1098613     1.22   0.224    -.0817078    .3490502
+      indgh4 |   -.594721    .083543    -7.12   0.000     -.758504   -.4309381
+      indgh5 |  -.0015239   .1369815    -0.01   0.991    -.2700711    .2670234
+      indgh6 |   -.494342   .0843706    -5.86   0.000    -.6597474   -.3289366
+      indgh7 |  -.1394036     .10984    -1.27   0.204    -.3547409    .0759337
+      indgh8 |          0  (omitted)
+      indsl1 |          0  (omitted)
+      indsl2 |    .440474   .1151133     3.83   0.000     .2147986    .6661495
+      indsl3 |   .6617124   .1029066     6.43   0.000     .4599678     .863457
+      indsl4 |   .8861287   .1485161     5.97   0.000     .5949683    1.177289
+      indsl5 |  -.1088645   .1318735    -0.83   0.409    -.3673977    .1496686
+      indsl6 |   .4037874   .1134525     3.56   0.000      .181368    .6262067
+      indsl7 |          0  (omitted)
+      indgh1 |          0  (omitted)
+      indgh2 |          0  (omitted)
+      indgh3 |          0  (omitted)
+      indgh4 |          0  (omitted)
+      indgh5 |          0  (omitted)
+      indgh6 |          0  (omitted)
+      indgh7 |          0  (omitted)
+      indgh8 |          0  (omitted)
+      indsl1 |          0  (omitted)
+      indsl2 |          0  (omitted)
+      indsl3 |          0  (omitted)
+      indsl4 |          0  (omitted)
+      indsl5 |          0  (omitted)
+      indsl6 |          0  (omitted)
+      indsl7 |          0  (omitted)
+       _cons |  -.1032206   .0590193    -1.75   0.080    -.2189258    .0124846
+------------------------------------------------------------------------------
+
+Parente-Santos Silva test for intra-cluster correlation
+         Ho: No intra-cluster correlation
+
+            T   =  41.131
+         P>|T|  =   0.000
+(est3 stored)
+
+.                 estadd scalar N_clust = $FirmCount
+
+added scalar:
+            e(N_clust) =  1114
+
+. 
+. eststo: qreg2 ln_TFP_BB treated cy* ind* ind*, cluster(sheno) q(0.5)
+note: cy11 omitted because of collinearity.
+note: indgh1 omitted because of collinearity.
+note: indgh8 omitted because of collinearity.
+note: indsl1 omitted because of collinearity.
+note: indsl7 omitted because of collinearity.
+note: indgh1 omitted because of collinearity.
+note: indgh2 omitted because of collinearity.
+note: indgh3 omitted because of collinearity.
+note: indgh4 omitted because of collinearity.
+note: indgh5 omitted because of collinearity.
+note: indgh6 omitted because of collinearity.
+note: indgh7 omitted because of collinearity.
+note: indgh8 omitted because of collinearity.
+note: indsl1 omitted because of collinearity.
+note: indsl2 omitted because of collinearity.
+note: indsl3 omitted because of collinearity.
+note: indsl4 omitted because of collinearity.
+note: indsl5 omitted because of collinearity.
+note: indsl6 omitted because of collinearity.
+note: indsl7 omitted because of collinearity.
+
+Median regression
+R-squared = .13900113
+Number of obs = 4777
+Objective function = .25869298
+
+Standard errors adjusted for 1114 clusters in sheno
+------------------------------------------------------------------------------
+   ln_TFP_BB | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+     treated |   .0718334   .0432585     1.66   0.097    -.0129733    .1566401
+         cy1 |  -.3815272   .1100659    -3.47   0.001    -.5973073    -.165747
+         cy2 |   -.409876   .1069763    -3.83   0.000     -.619599    -.200153
+         cy3 |  -.4524976   .1011112    -4.48   0.000    -.6507223   -.2542729
+         cy4 |  -.4532498   .1041142    -4.35   0.000    -.6573619   -.2491378
+         cy5 |  -.4462185   .1097008    -4.07   0.000    -.6612829   -.2311541
+         cy6 |  -.4481574   .0999725    -4.48   0.000    -.6441498    -.252165
+         cy7 |  -.4338128   .1022016    -4.24   0.000    -.6341752   -.2334505
+         cy8 |  -.0224824   .0422342    -0.53   0.595    -.1052809    .0603162
+         cy9 |   .0190824    .039785     0.48   0.632    -.0589145    .0970794
+        cy10 |  -.0283166   .0352569    -0.80   0.422    -.0974365    .0408034
+        cy11 |          0  (omitted)
+      indgh1 |          0  (omitted)
+      indgh2 |   .0708295   .0755266     0.94   0.348    -.0772376    .2188967
+      indgh3 |   .1223428   .0991422     1.23   0.217    -.0720218    .3167074
+      indgh4 |  -.6750721   .0936567    -7.21   0.000    -.8586826   -.4914616
+      indgh5 |  -.0284212   .0954758    -0.30   0.766     -.215598    .1587557
+      indgh6 |  -.5435092   .0885131    -6.14   0.000    -.7170359   -.3699826
+      indgh7 |  -.2168607   .0931095    -2.33   0.020    -.3993983    -.034323
+      indgh8 |          0  (omitted)
+      indsl1 |          0  (omitted)
+      indsl2 |   .4019346   .1130079     3.56   0.000     .1803868    .6234824
+      indsl3 |    .630971   .0970636     6.50   0.000     .4406814    .8212605
+      indsl4 |   .8205321   .1587342     5.17   0.000     .5093395    1.131725
+      indsl5 |  -.1693032   .1398361    -1.21   0.226    -.4434468    .1048404
+      indsl6 |   .3199849   .1133371     2.82   0.005     .0977917    .5421781
+      indsl7 |          0  (omitted)
+      indgh1 |          0  (omitted)
+      indgh2 |          0  (omitted)
+      indgh3 |          0  (omitted)
+      indgh4 |          0  (omitted)
+      indgh5 |          0  (omitted)
+      indgh6 |          0  (omitted)
+      indgh7 |          0  (omitted)
+      indgh8 |          0  (omitted)
+      indsl1 |          0  (omitted)
+      indsl2 |          0  (omitted)
+      indsl3 |          0  (omitted)
+      indsl4 |          0  (omitted)
+      indsl5 |          0  (omitted)
+      indsl6 |          0  (omitted)
+      indsl7 |          0  (omitted)
+       _cons |   .1188807   .0625394     1.90   0.057    -.0037254    .2414869
+------------------------------------------------------------------------------
+
+Parente-Santos Silva test for intra-cluster correlation
+         Ho: No intra-cluster correlation
+
+            T   =  44.200
+         P>|T|  =   0.000
+(est4 stored)
+
+.                 estadd scalar N_clust = $FirmCount
+
+added scalar:
+            e(N_clust) =  1114
+
+. 
+. eststo: qreg2 ln_TFP_BB treated cy* ind* ind*, cluster(sheno) q(0.6)
+note: cy11 omitted because of collinearity.
+note: indgh1 omitted because of collinearity.
+note: indgh8 omitted because of collinearity.
+note: indsl1 omitted because of collinearity.
+note: indsl7 omitted because of collinearity.
+note: indgh1 omitted because of collinearity.
+note: indgh2 omitted because of collinearity.
+note: indgh3 omitted because of collinearity.
+note: indgh4 omitted because of collinearity.
+note: indgh5 omitted because of collinearity.
+note: indgh6 omitted because of collinearity.
+note: indgh7 omitted because of collinearity.
+note: indgh8 omitted because of collinearity.
+note: indsl1 omitted because of collinearity.
+note: indsl2 omitted because of collinearity.
+note: indsl3 omitted because of collinearity.
+note: indsl4 omitted because of collinearity.
+note: indsl5 omitted because of collinearity.
+note: indsl6 omitted because of collinearity.
+note: indsl7 omitted because of collinearity.
+
+.6 Quantile regression
+R-squared = .139768
+Number of obs = 4777
+Objective function = .24638334
+
+Standard errors adjusted for 1114 clusters in sheno
+------------------------------------------------------------------------------
+   ln_TFP_BB | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+     treated |   .0885811   .0407803     2.17   0.030     .0086328    .1685294
+         cy1 |  -.3177126   .0900249    -3.53   0.000    -.4942032   -.1412221
+         cy2 |  -.3299628   .0817407    -4.04   0.000    -.4902124   -.1697132
+         cy3 |  -.3682897     .08602    -4.28   0.000    -.5369287   -.1996507
+         cy4 |  -.3448885   .0950786    -3.63   0.000    -.5312866   -.1584903
+         cy5 |  -.3651378   .0893144    -4.09   0.000    -.5402355   -.1900401
+         cy6 |  -.3895421   .0872546    -4.46   0.000    -.5606016   -.2184826
+         cy7 |  -.3572369   .0795776    -4.49   0.000    -.5132458   -.2012281
+         cy8 |   .0039567   .0436668     0.09   0.928    -.0816505    .0895639
+         cy9 |   .0210803   .0394485     0.53   0.593    -.0562571    .0984176
+        cy10 |  -.0166507   .0387588    -0.43   0.668     -.092636    .0593346
+        cy11 |          0  (omitted)
+      indgh1 |          0  (omitted)
+      indgh2 |    .171622   .0768531     2.23   0.026     .0209543    .3222897
+      indgh3 |   .0921721   .0903343     1.02   0.308     -.084925    .2692692
+      indgh4 |  -.6671481   .0860626    -7.75   0.000    -.8358706   -.4984256
+      indgh5 |   -.079117   .0945392    -0.84   0.403    -.2644576    .1062237
+      indgh6 |  -.5302373   .0749102    -7.08   0.000     -.677096   -.3833787
+      indgh7 |  -.2301079   .0922094    -2.50   0.013    -.4108811   -.0493348
+      indgh8 |          0  (omitted)
+      indsl1 |          0  (omitted)
+      indsl2 |   .3135362   .1078058     2.91   0.004     .1021869    .5248854
+      indsl3 |   .5287862   .0774829     6.82   0.000     .3768838    .6806886
+      indsl4 |   .6522712   .1091608     5.98   0.000     .4382656    .8662769
+      indsl5 |  -.2133558   .1503531    -1.42   0.156    -.5081174    .0814059
+      indsl6 |   .2180681   .1136489     1.92   0.055    -.0047363    .4408726
+      indsl7 |          0  (omitted)
+      indgh1 |          0  (omitted)
+      indgh2 |          0  (omitted)
+      indgh3 |          0  (omitted)
+      indgh4 |          0  (omitted)
+      indgh5 |          0  (omitted)
+      indgh6 |          0  (omitted)
+      indgh7 |          0  (omitted)
+      indgh8 |          0  (omitted)
+      indsl1 |          0  (omitted)
+      indsl2 |          0  (omitted)
+      indsl3 |          0  (omitted)
+      indsl4 |          0  (omitted)
+      indsl5 |          0  (omitted)
+      indsl6 |          0  (omitted)
+      indsl7 |          0  (omitted)
+       _cons |   .2617534   .0569394     4.60   0.000     .1501258     .373381
+------------------------------------------------------------------------------
+
+Parente-Santos Silva test for intra-cluster correlation
+         Ho: No intra-cluster correlation
+
+            T   =  45.455
+         P>|T|  =   0.000
+(est5 stored)
+
+.                 estadd scalar N_clust = $FirmCount
+
+added scalar:
+            e(N_clust) =  1114
+
+. 
+. eststo: qreg2 ln_TFP_BB treated cy* ind* ind*, cluster(sheno) q(0.8)
+note: cy11 omitted because of collinearity.
+note: indgh1 omitted because of collinearity.
+note: indgh8 omitted because of collinearity.
+note: indsl1 omitted because of collinearity.
+note: indsl7 omitted because of collinearity.
+note: indgh1 omitted because of collinearity.
+note: indgh2 omitted because of collinearity.
+note: indgh3 omitted because of collinearity.
+note: indgh4 omitted because of collinearity.
+note: indgh5 omitted because of collinearity.
+note: indgh6 omitted because of collinearity.
+note: indgh7 omitted because of collinearity.
+note: indgh8 omitted because of collinearity.
+note: indsl1 omitted because of collinearity.
+note: indsl2 omitted because of collinearity.
+note: indsl3 omitted because of collinearity.
+note: indsl4 omitted because of collinearity.
+note: indsl5 omitted because of collinearity.
+note: indsl6 omitted because of collinearity.
+note: indsl7 omitted because of collinearity.
+
+.8 Quantile regression
+R-squared = .13440457
+Number of obs = 4777
+Objective function = .1722759
+
+Standard errors adjusted for 1114 clusters in sheno
+------------------------------------------------------------------------------
+   ln_TFP_BB | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+     treated |   .0892797   .0362748     2.46   0.014     .0181643    .1603951
+         cy1 |  -.4027589   .0832192    -4.84   0.000    -.5659071   -.2396106
+         cy2 |  -.5146399    .083727    -6.15   0.000    -.6787836   -.3504962
+         cy3 |  -.5426815    .079328    -6.84   0.000    -.6982011   -.3871619
+         cy4 |  -.5185349   .0868975    -5.97   0.000    -.6888942   -.3481756
+         cy5 |   -.528156   .0831561    -6.35   0.000    -.6911805   -.3651314
+         cy6 |   -.504951   .0815405    -6.19   0.000    -.6648081   -.3450939
+         cy7 |  -.5631352   .0806214    -6.98   0.000    -.7211906   -.4050799
+         cy8 |  -.0370589    .044032    -0.84   0.400    -.1233819    .0492642
+         cy9 |  -.0461751   .0389414    -1.19   0.236    -.1225183    .0301681
+        cy10 |  -.0810435   .0352142    -2.30   0.021    -.1500796   -.0120074
+        cy11 |          0  (omitted)
+      indgh1 |          0  (omitted)
+      indgh2 |   .1296046   .0784252     1.65   0.098    -.0241451    .2833543
+      indgh3 |  -.0163865   .0846797    -0.19   0.847     -.182398     .149625
+      indgh4 |  -.7400399   .0832521    -8.89   0.000    -.9032525   -.5768273
+      indgh5 |  -.1452496   .0876492    -1.66   0.098    -.3170827    .0265834
+      indgh6 |  -.5733301    .095933    -5.98   0.000    -.7614033   -.3852569
+      indgh7 |  -.3337576   .0874336    -3.82   0.000     -.505168   -.1623472
+      indgh8 |          0  (omitted)
+      indsl1 |          0  (omitted)
+      indsl2 |   .3474607   .1039053     3.34   0.001     .1437582    .5511633
+      indsl3 |   .4847388    .068135     7.11   0.000     .3511628    .6183149
+      indsl4 |   .4924598   .0715248     6.89   0.000     .3522381    .6326815
+      indsl5 |  -.0538125    .098684    -0.55   0.586    -.2472788    .1396538
+      indsl6 |   .2094069   .1020262     2.05   0.040     .0093882    .4094255
+      indsl7 |          0  (omitted)
+      indgh1 |          0  (omitted)
+      indgh2 |          0  (omitted)
+      indgh3 |          0  (omitted)
+      indgh4 |          0  (omitted)
+      indgh5 |          0  (omitted)
+      indgh6 |          0  (omitted)
+      indgh7 |          0  (omitted)
+      indgh8 |          0  (omitted)
+      indsl1 |          0  (omitted)
+      indsl2 |          0  (omitted)
+      indsl3 |          0  (omitted)
+      indsl4 |          0  (omitted)
+      indsl5 |          0  (omitted)
+      indsl6 |          0  (omitted)
+      indsl7 |          0  (omitted)
+       _cons |   .7126477   .0560811    12.71   0.000     .6027028    .8225926
+------------------------------------------------------------------------------
+
+Parente-Santos Silva test for intra-cluster correlation
+         Ho: No intra-cluster correlation
+
+            T   =  41.461
+         P>|T|  =   0.000
+(est6 stored)
+
+.                 estadd scalar N_clust = $FirmCount
+
+added scalar:
+            e(N_clust) =  1114
+
+.                 
+. 
+. global  sub1 "OLS\\\vphantom{()}"
+
+. global  sub2 "Quantile\\(0.2)"
+
+. global  sub3 "Quantile\\(0.4)"
+
+. global  sub4 "Quantile\\(0.5)"
+
+. global  sub5 "Quantile\\(0.6)"
+
+. global  sub6 "Quantile\\(0.8)"
+
+. 
+. label   var treated "Dummy: Treated"
+
+. 
+. esttab   using "Table2A.tex", cells(b(star fmt(%4.2fc)) se(par(( )) fmt(%4.2fc))) /// 
+>                    label noconstant booktabs collabels(none) ///
+>                    starlevels(* 0.10 ** 0.05 *** 0.01)   ///
+>                    keep(treated) ///
+>                    mlabel("\specialcell{$sub1}" "\specialcell{$sub2}" "\specialcell{$sub3}" "\specialcell{$su
+> b4}" "\specialcell{$sub5}" "\specialcell{$sub6}", notitles) /// 
+>                    noobs stats(N N_clust, ///
+>                                                 fmt(%4.0fc %4.0fc) ///
+>                                                 labels("Observations" "Microenterprises")) ///
+>                    replace              
+(output written to Table2A.tex)
+
+.         
+.         
+. 
+. ********************************************************************************
+. **              PANEL B) GNR pooled without ANCOVA controls     
+. 
+. 
+. eststo clear
+
+. 
+. eststo: reghdfe ln_TFP_GNR treated, absorb(interact ghindustry slindustry) cluster(sheno)
+(MWFE estimator converged in 4 iterations)
+
+HDFE Linear regression                            Number of obs   =      4,777
+Absorbing 3 HDFE groups                           F(   1,   1113) =       0.80
+Statistics robust to heteroskedasticity           Prob > F        =     0.3702
+                                                  R-squared       =     0.1134
+                                                  Adj R-squared   =     0.1093
+                                                  Within R-sq.    =     0.0004
+Number of clusters (sheno)   =      1,114         Root MSE        =     0.6320
+
+                              (Std. err. adjusted for 1,114 clusters in sheno)
+------------------------------------------------------------------------------
+             |               Robust
+  ln_TFP_GNR | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+     treated |   .0270378   .0301636     0.90   0.370    -.0321461    .0862217
+       _cons |  -.0133066   .0205292    -0.65   0.517    -.0535869    .0269736
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+    interact |        11           0          11     |
+  ghindustry |         8           2           6     |
+  slindustry |         7           2           5    ?|
+-----------------------------------------------------+
+? = number of redundant parameters may be higher
+(est1 stored)
+
+.                 global  FirmCount = e(N_clust)
+
+. 
+. eststo: qreg2 ln_TFP_GNR treated cy* ind* ind*, cluster(sheno) q(0.2)
+note: cy11 omitted because of collinearity.
+note: indgh1 omitted because of collinearity.
+note: indgh8 omitted because of collinearity.
+note: indsl1 omitted because of collinearity.
+note: indsl7 omitted because of collinearity.
+note: indgh1 omitted because of collinearity.
+note: indgh2 omitted because of collinearity.
+note: indgh3 omitted because of collinearity.
+note: indgh4 omitted because of collinearity.
+note: indgh5 omitted because of collinearity.
+note: indgh6 omitted because of collinearity.
+note: indgh7 omitted because of collinearity.
+note: indgh8 omitted because of collinearity.
+note: indsl1 omitted because of collinearity.
+note: indsl2 omitted because of collinearity.
+note: indsl3 omitted because of collinearity.
+note: indsl4 omitted because of collinearity.
+note: indsl5 omitted because of collinearity.
+note: indsl6 omitted because of collinearity.
+note: indsl7 omitted because of collinearity.
+
+.2 Quantile regression
+R-squared = .09798965
+Number of obs = 4777
+Objective function = .18125036
+
+Standard errors adjusted for 1114 clusters in sheno
+------------------------------------------------------------------------------
+  ln_TFP_GNR | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+     treated |   -.012066   .0403355    -0.30   0.765    -.0911422    .0670102
+         cy1 |  -.1181062   .0870848    -1.36   0.175    -.2888327    .0526203
+         cy2 |  -.0440287   .0950513    -0.46   0.643    -.2303733    .1423159
+         cy3 |  -.0830306   .0879977    -0.94   0.345    -.2555468    .0894857
+         cy4 |  -.0367662   .0901914    -0.41   0.684    -.2135831    .1400507
+         cy5 |  -.0083196    .084903    -0.10   0.922    -.1747688    .1581296
+         cy6 |  -.0523961   .0963018    -0.54   0.586    -.2411922    .1364001
+         cy7 |  -.0405911   .0957329    -0.42   0.672    -.2282718    .1470897
+         cy8 |   .0005653   .0500852     0.01   0.991    -.0976249    .0987555
+         cy9 |   .0290236   .0475519     0.61   0.542       -.0642    .1222473
+        cy10 |    .073152    .044581     1.64   0.101    -.0142473    .1605514
+        cy11 |          0  (omitted)
+      indgh1 |          0  (omitted)
+      indgh2 |   .1297377   .0731091     1.77   0.076      -.01359    .2730655
+      indgh3 |    .205573   .0866595     2.37   0.018     .0356803    .3754657
+      indgh4 |  -.6701213   .1130759    -5.93   0.000    -.8918025   -.4484401
+      indgh5 |   .0139258   .0775418     0.18   0.857    -.1380921    .1659437
+      indgh6 |  -.4196038   .0737806    -5.69   0.000    -.5642481   -.2749596
+      indgh7 |  -.1979315   .1122303    -1.76   0.078    -.4179547    .0220918
+      indgh8 |          0  (omitted)
+      indsl1 |          0  (omitted)
+      indsl2 |   .3415738   .1008842     3.39   0.001     .1437941    .5393536
+      indsl3 |   .2343215    .082361     2.85   0.004     .0728558    .3957871
+      indsl4 |    .505493   .4753772     1.06   0.288    -.4264665    1.437452
+      indsl5 |  -.2822529   .1610933    -1.75   0.080    -.5980704    .0335646
+      indsl6 |   .2060294    .095984     2.15   0.032     .0178564    .3942024
+      indsl7 |          0  (omitted)
+      indgh1 |          0  (omitted)
+      indgh2 |          0  (omitted)
+      indgh3 |          0  (omitted)
+      indgh4 |          0  (omitted)
+      indgh5 |          0  (omitted)
+      indgh6 |          0  (omitted)
+      indgh7 |          0  (omitted)
+      indgh8 |          0  (omitted)
+      indsl1 |          0  (omitted)
+      indsl2 |          0  (omitted)
+      indsl3 |          0  (omitted)
+      indsl4 |          0  (omitted)
+      indsl5 |          0  (omitted)
+      indsl6 |          0  (omitted)
+      indsl7 |          0  (omitted)
+       _cons |  -.4987267   .0529493    -9.42   0.000    -.6025318   -.3949217
+------------------------------------------------------------------------------
+
+Parente-Santos Silva test for intra-cluster correlation
+         Ho: No intra-cluster correlation
+
+            T   =  30.624
+         P>|T|  =   0.000
+(est2 stored)
+
+.                 estadd scalar N_clust = $FirmCount
+
+added scalar:
+            e(N_clust) =  1114
+
+.                 
+. eststo: qreg2 ln_TFP_GNR treated cy* ind* ind*, cluster(sheno) q(0.4)
+note: cy11 omitted because of collinearity.
+note: indgh1 omitted because of collinearity.
+note: indgh8 omitted because of collinearity.
+note: indsl1 omitted because of collinearity.
+note: indsl7 omitted because of collinearity.
+note: indgh1 omitted because of collinearity.
+note: indgh2 omitted because of collinearity.
+note: indgh3 omitted because of collinearity.
+note: indgh4 omitted because of collinearity.
+note: indgh5 omitted because of collinearity.
+note: indgh6 omitted because of collinearity.
+note: indgh7 omitted because of collinearity.
+note: indgh8 omitted because of collinearity.
+note: indsl1 omitted because of collinearity.
+note: indsl2 omitted because of collinearity.
+note: indsl3 omitted because of collinearity.
+note: indsl4 omitted because of collinearity.
+note: indsl5 omitted because of collinearity.
+note: indsl6 omitted because of collinearity.
+note: indsl7 omitted because of collinearity.
+
+.4 Quantile regression
+R-squared = .10666982
+Number of obs = 4777
+Objective function = .24131501
+
+Standard errors adjusted for 1114 clusters in sheno
+------------------------------------------------------------------------------
+  ln_TFP_GNR | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+     treated |   .0333778   .0369764     0.90   0.367    -.0391131    .1058688
+         cy1 |  -.0991539   .0908102    -1.09   0.275     -.277184    .0788761
+         cy2 |  -.0735735   .0886815    -0.83   0.407    -.2474304    .1002833
+         cy3 |   -.088077   .0892993    -0.99   0.324    -.2631449    .0869909
+         cy4 |  -.0625878   .0908303    -0.69   0.491    -.2406572    .1154815
+         cy5 |  -.0917486   .0849011    -1.08   0.280     -.258194    .0746967
+         cy6 |  -.0780603   .0830826    -0.94   0.347    -.2409407    .0848202
+         cy7 |  -.0600395   .0860778    -0.70   0.486    -.2287919    .1087128
+         cy8 |  -.0043376   .0406069    -0.11   0.915     -.083946    .0752708
+         cy9 |   .0071813   .0409657     0.18   0.861    -.0731304     .087493
+        cy10 |   .0286936   .0373704     0.77   0.443    -.0445697    .1019569
+        cy11 |          0  (omitted)
+      indgh1 |          0  (omitted)
+      indgh2 |   .1506119   .0697493     2.16   0.031      .013871    .2873528
+      indgh3 |   .1412525   .1098488     1.29   0.199    -.0741021     .356607
+      indgh4 |   -.601329   .0867057    -6.94   0.000    -.7713123   -.4313457
+      indgh5 |  -.0124094    .152973    -0.08   0.935    -.3123072    .2874885
+      indgh6 |  -.4965724   .0787447    -6.31   0.000    -.6509485   -.3421962
+      indgh7 |  -.1326523   .1010135    -1.31   0.189    -.3306856    .0653809
+      indgh8 |          0  (omitted)
+      indsl1 |          0  (omitted)
+      indsl2 |    .261232   .0972372     2.69   0.007     .0706021    .4518618
+      indsl3 |    .155469   .0730181     2.13   0.033     .0123198    .2986182
+      indsl4 |   .5853217   .2506759     2.33   0.020     .0938809    1.076763
+      indsl5 |  -.3824153   .1027452    -3.72   0.000    -.5838434   -.1809872
+      indsl6 |   .1091572   .0961604     1.14   0.256    -.0793616     .297676
+      indsl7 |          0  (omitted)
+      indgh1 |          0  (omitted)
+      indgh2 |          0  (omitted)
+      indgh3 |          0  (omitted)
+      indgh4 |          0  (omitted)
+      indgh5 |          0  (omitted)
+      indgh6 |          0  (omitted)
+      indgh7 |          0  (omitted)
+      indgh8 |          0  (omitted)
+      indsl1 |          0  (omitted)
+      indsl2 |          0  (omitted)
+      indsl3 |          0  (omitted)
+      indsl4 |          0  (omitted)
+      indsl5 |          0  (omitted)
+      indsl6 |          0  (omitted)
+      indsl7 |          0  (omitted)
+       _cons |  -.0874342   .0594726    -1.47   0.142    -.2040281    .0291596
+------------------------------------------------------------------------------
+
+Parente-Santos Silva test for intra-cluster correlation
+         Ho: No intra-cluster correlation
+
+            T   =  39.980
+         P>|T|  =   0.000
+(est3 stored)
+
+.                 estadd scalar N_clust = $FirmCount
+
+added scalar:
+            e(N_clust) =  1114
+
+. 
+. eststo: qreg2 ln_TFP_GNR treated cy* ind* ind*, cluster(sheno) q(0.5)
+note: cy11 omitted because of collinearity.
+note: indgh1 omitted because of collinearity.
+note: indgh8 omitted because of collinearity.
+note: indsl1 omitted because of collinearity.
+note: indsl7 omitted because of collinearity.
+note: indgh1 omitted because of collinearity.
+note: indgh2 omitted because of collinearity.
+note: indgh3 omitted because of collinearity.
+note: indgh4 omitted because of collinearity.
+note: indgh5 omitted because of collinearity.
+note: indgh6 omitted because of collinearity.
+note: indgh7 omitted because of collinearity.
+note: indgh8 omitted because of collinearity.
+note: indsl1 omitted because of collinearity.
+note: indsl2 omitted because of collinearity.
+note: indsl3 omitted because of collinearity.
+note: indsl4 omitted because of collinearity.
+note: indsl5 omitted because of collinearity.
+note: indsl6 omitted because of collinearity.
+note: indsl7 omitted because of collinearity.
+
+Median regression
+R-squared = .10961932
+Number of obs = 4777
+Objective function = .24537427
+
+Standard errors adjusted for 1114 clusters in sheno
+------------------------------------------------------------------------------
+  ln_TFP_GNR | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+     treated |   .0342246   .0364844     0.94   0.348    -.0373017    .1057509
+         cy1 |  -.1643693   .0870566    -1.89   0.059    -.3350406     .006302
+         cy2 |  -.1366224   .0814421    -1.68   0.094    -.2962867    .0230419
+         cy3 |  -.1519512   .0808413    -1.88   0.060    -.3104375    .0065352
+         cy4 |  -.1400982   .0825897    -1.70   0.090    -.3020123    .0218158
+         cy5 |  -.1779216   .0816111    -2.18   0.029    -.3379172   -.0179259
+         cy6 |  -.1501778   .0802989    -1.87   0.062    -.3076008    .0072451
+         cy7 |  -.1328661   .0787002    -1.69   0.091    -.2871548    .0214227
+         cy8 |  -.0247759   .0433137    -0.57   0.567    -.1096909     .060139
+         cy9 |   .0279308   .0450572     0.62   0.535    -.0604023    .1162638
+        cy10 |  -.0182041   .0383751    -0.47   0.635    -.0934371    .0570288
+        cy11 |          0  (omitted)
+      indgh1 |          0  (omitted)
+      indgh2 |    .084819   .0795802     1.07   0.287    -.0711952    .2408331
+      indgh3 |   .1162112   .1066288     1.09   0.276    -.0928307    .3252531
+      indgh4 |  -.6859799   .0917873    -7.47   0.000    -.8659254   -.5060344
+      indgh5 |  -.0417387   .1023414    -0.41   0.683    -.2423753    .1588978
+      indgh6 |  -.5345464   .0872116    -6.13   0.000    -.7055215   -.3635713
+      indgh7 |    -.20595   .0876965    -2.35   0.019    -.3778757   -.0340243
+      indgh8 |          0  (omitted)
+      indsl1 |          0  (omitted)
+      indsl2 |   .2493049   .0872734     2.86   0.004     .0782087    .4204011
+      indsl3 |   .1337038   .0615091     2.17   0.030     .0131176    .2542901
+      indsl4 |   .5611987   .0775228     7.24   0.000     .4092182    .7131793
+      indsl5 |  -.3820429   .0959852    -3.98   0.000    -.5702184   -.1938674
+      indsl6 |   .0542114    .080199     0.68   0.499    -.1030159    .2114386
+      indsl7 |          0  (omitted)
+      indgh1 |          0  (omitted)
+      indgh2 |          0  (omitted)
+      indgh3 |          0  (omitted)
+      indgh4 |          0  (omitted)
+      indgh5 |          0  (omitted)
+      indgh6 |          0  (omitted)
+      indgh7 |          0  (omitted)
+      indgh8 |          0  (omitted)
+      indsl1 |          0  (omitted)
+      indsl2 |          0  (omitted)
+      indsl3 |          0  (omitted)
+      indsl4 |          0  (omitted)
+      indsl5 |          0  (omitted)
+      indsl6 |          0  (omitted)
+      indsl7 |          0  (omitted)
+       _cons |   .1296497    .063535     2.04   0.041     .0050917    .2542077
+------------------------------------------------------------------------------
+
+Parente-Santos Silva test for intra-cluster correlation
+         Ho: No intra-cluster correlation
+
+            T   =  40.074
+         P>|T|  =   0.000
+(est4 stored)
+
+.                 estadd scalar N_clust = $FirmCount
+
+added scalar:
+            e(N_clust) =  1114
+
+. 
+. eststo: qreg2 ln_TFP_GNR treated cy* ind* ind*, cluster(sheno) q(0.6)
+note: cy11 omitted because of collinearity.
+note: indgh1 omitted because of collinearity.
+note: indgh8 omitted because of collinearity.
+note: indsl1 omitted because of collinearity.
+note: indsl7 omitted because of collinearity.
+note: indgh1 omitted because of collinearity.
+note: indgh2 omitted because of collinearity.
+note: indgh3 omitted because of collinearity.
+note: indgh4 omitted because of collinearity.
+note: indgh5 omitted because of collinearity.
+note: indgh6 omitted because of collinearity.
+note: indgh7 omitted because of collinearity.
+note: indgh8 omitted because of collinearity.
+note: indsl1 omitted because of collinearity.
+note: indsl2 omitted because of collinearity.
+note: indsl3 omitted because of collinearity.
+note: indsl4 omitted because of collinearity.
+note: indsl5 omitted because of collinearity.
+note: indsl6 omitted because of collinearity.
+note: indsl7 omitted because of collinearity.
+
+.6 Quantile regression
+R-squared = .11146657
+Number of obs = 4777
+Objective function = .23396023
+
+Standard errors adjusted for 1114 clusters in sheno
+------------------------------------------------------------------------------
+  ln_TFP_GNR | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+     treated |   .0305341   .0328715     0.93   0.353    -.0339093    .0949775
+         cy1 |  -.1587037   .0729173    -2.18   0.030    -.3016553   -.0157521
+         cy2 |  -.1517728    .068589    -2.21   0.027    -.2862391   -.0173065
+         cy3 |  -.1743518   .0698624    -2.50   0.013    -.3113144   -.0373893
+         cy4 |  -.1599284   .0671379    -2.38   0.017    -.2915498    -.028307
+         cy5 |  -.1820015   .0682443    -2.67   0.008    -.3157919   -.0482111
+         cy6 |  -.1947981   .0704599    -2.76   0.006    -.3329322    -.056664
+         cy7 |  -.1940114   .0666558    -2.91   0.004    -.3246877   -.0633352
+         cy8 |  -.0250681    .044623    -0.56   0.574    -.1125498    .0624136
+         cy9 |   .0056537   .0418557     0.14   0.893    -.0764028    .0877102
+        cy10 |  -.0260187   .0399361    -0.65   0.515    -.1043119    .0522745
+        cy11 |          0  (omitted)
+      indgh1 |          0  (omitted)
+      indgh2 |   .1787817   .0748811     2.39   0.017     .0319799    .3255834
+      indgh3 |   .1187959   .0974586     1.22   0.223    -.0722681    .3098599
+      indgh4 |  -.6664396   .0895799    -7.44   0.000    -.8420576   -.4908216
+      indgh5 |  -.0647862   .1033459    -0.63   0.531     -.267392    .1378196
+      indgh6 |   -.518253   .0854215    -6.07   0.000    -.6857187   -.3507872
+      indgh7 |  -.2287515   .0888646    -2.57   0.010    -.4029674   -.0545357
+      indgh8 |          0  (omitted)
+      indsl1 |          0  (omitted)
+      indsl2 |   .2297643   .0748527     3.07   0.002     .0830184    .3765102
+      indsl3 |   .1102351   .0545782     2.02   0.043     .0032366    .2172336
+      indsl4 |   .4755042    .065811     7.23   0.000     .3464842    .6045242
+      indsl5 |  -.3700317   .0777339    -4.76   0.000    -.5224262   -.2176372
+      indsl6 |   .0241205   .0668528     0.36   0.718    -.1069419    .1551828
+      indsl7 |          0  (omitted)
+      indgh1 |          0  (omitted)
+      indgh2 |          0  (omitted)
+      indgh3 |          0  (omitted)
+      indgh4 |          0  (omitted)
+      indgh5 |          0  (omitted)
+      indgh6 |          0  (omitted)
+      indgh7 |          0  (omitted)
+      indgh8 |          0  (omitted)
+      indsl1 |          0  (omitted)
+      indsl2 |          0  (omitted)
+      indsl3 |          0  (omitted)
+      indsl4 |          0  (omitted)
+      indsl5 |          0  (omitted)
+      indsl6 |          0  (omitted)
+      indsl7 |          0  (omitted)
+       _cons |   .2931163    .057016     5.14   0.000     .1813386    .4048939
+------------------------------------------------------------------------------
+
+Parente-Santos Silva test for intra-cluster correlation
+         Ho: No intra-cluster correlation
+
+            T   =  40.851
+         P>|T|  =   0.000
+(est5 stored)
+
+.                 estadd scalar N_clust = $FirmCount
+
+added scalar:
+            e(N_clust) =  1114
+
+. 
+. eststo: qreg2 ln_TFP_GNR treated cy* ind* ind*, cluster(sheno) q(0.8)
+note: cy11 omitted because of collinearity.
+note: indgh1 omitted because of collinearity.
+note: indgh8 omitted because of collinearity.
+note: indsl1 omitted because of collinearity.
+note: indsl7 omitted because of collinearity.
+note: indgh1 omitted because of collinearity.
+note: indgh2 omitted because of collinearity.
+note: indgh3 omitted because of collinearity.
+note: indgh4 omitted because of collinearity.
+note: indgh5 omitted because of collinearity.
+note: indgh6 omitted because of collinearity.
+note: indgh7 omitted because of collinearity.
+note: indgh8 omitted because of collinearity.
+note: indsl1 omitted because of collinearity.
+note: indsl2 omitted because of collinearity.
+note: indsl3 omitted because of collinearity.
+note: indsl4 omitted because of collinearity.
+note: indsl5 omitted because of collinearity.
+note: indsl6 omitted because of collinearity.
+note: indsl7 omitted because of collinearity.
+
+.8 Quantile regression
+R-squared = .10183585
+Number of obs = 4777
+Objective function = .16596165
+
+Standard errors adjusted for 1114 clusters in sheno
+------------------------------------------------------------------------------
+  ln_TFP_GNR | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+     treated |   .0669996   .0327078     2.05   0.041      .002877    .1311221
+         cy1 |  -.3170521   .0675319    -4.69   0.000    -.4494459   -.1846582
+         cy2 |  -.4029322   .0756797    -5.32   0.000    -.5512995   -.2545648
+         cy3 |  -.3831546   .0675283    -5.67   0.000    -.5155413    -.250768
+         cy4 |  -.4025449   .0681743    -5.90   0.000    -.5361982   -.2688916
+         cy5 |  -.4374606   .0664106    -6.59   0.000    -.5676561   -.3072651
+         cy6 |  -.4012177   .0681998    -5.88   0.000    -.5349209   -.2675145
+         cy7 |   -.423941   .0654718    -6.48   0.000    -.5522961   -.2955858
+         cy8 |  -.0388255   .0438366    -0.89   0.376    -.1247655    .0471146
+         cy9 |  -.0515866   .0408407    -1.26   0.207    -.1316533    .0284801
+        cy10 |  -.0763355   .0350518    -2.18   0.029    -.1450533   -.0076177
+        cy11 |          0  (omitted)
+      indgh1 |          0  (omitted)
+      indgh2 |   .1195257      .0813     1.47   0.142      -.03986    .2789113
+      indgh3 |  -.0272269   .0811095    -0.34   0.737    -.1862391    .1317853
+      indgh4 |  -.7436432    .082865    -8.97   0.000    -.9060969   -.5811894
+      indgh5 |   -.131884   .0939267    -1.40   0.160    -.3160238    .0522558
+      indgh6 |  -.5801369   .1006809    -5.76   0.000    -.7775182   -.3827556
+      indgh7 |  -.3455557   .0813122    -4.25   0.000    -.5049652   -.1861462
+      indgh8 |          0  (omitted)
+      indsl1 |          0  (omitted)
+      indsl2 |   .2391267   .0752013     3.18   0.001     .0916974     .386556
+      indsl3 |   .1629183    .055438     2.94   0.003     .0542342    .2716025
+      indsl4 |   .3916655   .0523414     7.48   0.000      .289052    .4942789
+      indsl5 |  -.2750239   .0785902    -3.50   0.000     -.429097   -.1209508
+      indsl6 |   .0431565   .0801073     0.54   0.590     -.113891     .200204
+      indsl7 |          0  (omitted)
+      indgh1 |          0  (omitted)
+      indgh2 |          0  (omitted)
+      indgh3 |          0  (omitted)
+      indgh4 |          0  (omitted)
+      indgh5 |          0  (omitted)
+      indgh6 |          0  (omitted)
+      indgh7 |          0  (omitted)
+      indgh8 |          0  (omitted)
+      indsl1 |          0  (omitted)
+      indsl2 |          0  (omitted)
+      indsl3 |          0  (omitted)
+      indsl4 |          0  (omitted)
+      indsl5 |          0  (omitted)
+      indsl6 |          0  (omitted)
+      indsl7 |          0  (omitted)
+       _cons |   .7275407   .0519988    13.99   0.000      .625599    .8294824
+------------------------------------------------------------------------------
+
+Parente-Santos Silva test for intra-cluster correlation
+         Ho: No intra-cluster correlation
+
+            T   =  35.976
+         P>|T|  =   0.000
+(est6 stored)
+
+.                 estadd scalar N_clust = $FirmCount
+
+added scalar:
+            e(N_clust) =  1114
+
+.                 
+. 
+. global  sub1 "OLS\\\vphantom{()}"
+
+. global  sub2 "Quantile\\(0.2)"
+
+. global  sub3 "Quantile\\(0.4)"
+
+. global  sub4 "Quantile\\(0.5)"
+
+. global  sub5 "Quantile\\(0.6)"
+
+. global  sub6 "Quantile\\(0.8)"
+
+. 
+. label   var treated "Dummy: Treated"
+
+. 
+. esttab   using "Table2B.tex", cells(b(star fmt(%4.2fc)) se(par(( )) fmt(%4.2fc))) /// 
+>                    label noconstant booktabs collabels(none) ///
+>                    starlevels(* 0.10 ** 0.05 *** 0.01)   ///
+>                    keep(treated) ///
+>                    mlabel("\specialcell{$sub1}" "\specialcell{$sub2}" "\specialcell{$sub3}" "\specialcell{$su
+> b4}" "\specialcell{$sub5}" "\specialcell{$sub6}", notitles) /// 
+>                    noobs stats(N N_clust, ///
+>                                                 fmt(%4.0fc %4.0fc) ///
+>                                                 labels("Observations" "Microenterprises")) ///
+>                    replace              
+(output written to Table2B.tex)
+
+.         
+.                 
+. ********************************************************************************
+. **              PANEL C) Labor productivity pooled without ANCOVA controls      
+. 
+. 
+. eststo clear
+
+. 
+. eststo: reghdfe yl treated kl ml l, absorb(interact slindustry ghindustry) cluster(sheno)
+(MWFE estimator converged in 4 iterations)
+
+HDFE Linear regression                            Number of obs   =      4,777
+Absorbing 3 HDFE groups                           F(   4,   1113) =     793.31
+Statistics robust to heteroskedasticity           Prob > F        =     0.0000
+                                                  R-squared       =     0.9215
+                                                  Adj R-squared   =     0.9210
+                                                  Within R-sq.    =     0.6328
+Number of clusters (sheno)   =      1,114         Root MSE        =     0.6080
+
+                              (Std. err. adjusted for 1,114 clusters in sheno)
+------------------------------------------------------------------------------
+             |               Robust
+          yl | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+     treated |   .0348033   .0274225     1.27   0.205    -.0190023    .0886089
+          kl |   .1064359   .0144848     7.35   0.000     .0780153    .1348564
+          ml |   .6271741    .015996    39.21   0.000     .5957884    .6585599
+           l |  -.0558893   .0234131    -2.39   0.017    -.1018281   -.0099506
+       _cons |   1.366465   .1180091    11.58   0.000      1.13492    1.598011
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+-----------------------------------------------------+
+ Absorbed FE | Categories  - Redundant  = Num. Coefs |
+-------------+---------------------------------------|
+    interact |        11           0          11     |
+  slindustry |         7           2           5     |
+  ghindustry |         8           2           6    ?|
+-----------------------------------------------------+
+? = number of redundant parameters may be higher
+(est1 stored)
+
+.                 global  FirmCount = e(N_clust)
+
+. 
+. eststo: qreg2 yl treated kl ml l cy*, cluster(sheno) q(0.2)
+note: cy11 omitted because of collinearity.
+
+.2 Quantile regression
+R-squared = .91191431
+Number of obs = 4777
+Objective function = .1696143
+
+Standard errors adjusted for 1114 clusters in sheno
+------------------------------------------------------------------------------
+          yl | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+     treated |  -.0116776   .0363931    -0.32   0.748     -.083025    .0596698
+          kl |   .0348321   .0175068     1.99   0.047     .0005106    .0691536
+          ml |   .8176124   .0200275    40.82   0.000     .7783491    .8568756
+           l |  -.0096158   .0323437    -0.30   0.766    -.0730245    .0537928
+         cy1 |   .4907374   .0860359     5.70   0.000     .3220673    .6594076
+         cy2 |   .6174714   .0975312     6.33   0.000     .4262651    .8086777
+         cy3 |   .6251934   .0979814     6.38   0.000     .4331045    .8172823
+         cy4 |   .7243463   .0862262     8.40   0.000     .5553031    .8933896
+         cy5 |   .7310782   .0903054     8.10   0.000     .5540379    .9081185
+         cy6 |   .7977713   .0953733     8.36   0.000     .6107957     .984747
+         cy7 |   .7509754   .1216972     6.17   0.000     .5123926    .9895583
+         cy8 |   .1075742   .0549434     1.96   0.050    -.0001403    .2152888
+         cy9 |   .1027684   .0478566     2.15   0.032     .0089473    .1965895
+        cy10 |   .1181514   .0510201     2.32   0.021     .0181285    .2181744
+        cy11 |          0  (omitted)
+       _cons |   .1181016   .1428123     0.83   0.408    -.1618764    .3980797
+------------------------------------------------------------------------------
+
+Parente-Santos Silva test for intra-cluster correlation
+         Ho: No intra-cluster correlation
+
+            T   =  25.969
+         P>|T|  =   0.000
+(est2 stored)
+
+.                 estadd scalar N_clust = $FirmCount
+
+added scalar:
+            e(N_clust) =  1114
+
+.                 
+. eststo: qreg2 yl treated kl ml l  cy*, cluster(sheno) q(0.4)
+note: cy11 omitted because of collinearity.
+
+.4 Quantile regression
+R-squared = .91286862
+Number of obs = 4777
+Objective function = .21891622
+
+Standard errors adjusted for 1114 clusters in sheno
+------------------------------------------------------------------------------
+          yl | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+     treated |   .0125731   .0248898     0.51   0.613    -.0362225    .0613686
+          kl |   .0436176   .0114385     3.81   0.000     .0211929    .0660423
+          ml |    .792919   .0153892    51.52   0.000     .7627491    .8230889
+           l |  -.0278828   .0205674    -1.36   0.175    -.0682044    .0124388
+         cy1 |   .4481647   .0799972     5.60   0.000     .2913332    .6049962
+         cy2 |    .569758   .0777634     7.33   0.000     .4173058    .7222103
+         cy3 |    .613569   .0796479     7.70   0.000     .4574224    .7697156
+         cy4 |   .6463331   .0814586     7.93   0.000     .4866365    .8060297
+         cy5 |   .5944611   .0766712     7.75   0.000     .4441501    .7447721
+         cy6 |   .6836124    .073261     9.33   0.000     .5399871    .8272378
+         cy7 |   .6789301    .078498     8.65   0.000     .5250377    .8328224
+         cy8 |   .0208002   .0334658     0.62   0.534    -.0448082    .0864086
+         cy9 |   .0533105   .0332386     1.60   0.109    -.0118524    .1184735
+        cy10 |   .0284349   .0312816     0.91   0.363    -.0328915    .0897612
+        cy11 |          0  (omitted)
+       _cons |   .5958051   .0949406     6.28   0.000     .4096777    .7819324
+------------------------------------------------------------------------------
+
+Parente-Santos Silva test for intra-cluster correlation
+         Ho: No intra-cluster correlation
+
+            T   =  30.053
+         P>|T|  =   0.000
+(est3 stored)
+
+.                 estadd scalar N_clust = $FirmCount
+
+added scalar:
+            e(N_clust) =  1114
+
+. 
+. eststo: qreg2 yl treated kl ml l  cy*, cluster(sheno) q(0.5)
+note: cy11 omitted because of collinearity.
+
+Median regression
+R-squared = .91436099
+Number of obs = 4777
+Objective function = .22384587
+
+Standard errors adjusted for 1114 clusters in sheno
+------------------------------------------------------------------------------
+          yl | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+     treated |    .038522   .0233026     1.65   0.098    -.0071618    .0842059
+          kl |   .0567622   .0105211     5.40   0.000      .036136    .0773884
+          ml |   .7677373    .014277    53.77   0.000     .7397477    .7957268
+           l |  -.0444626   .0189873    -2.34   0.019    -.0816865   -.0072388
+         cy1 |    .488495   .0709707     6.88   0.000     .3493596    .6276304
+         cy2 |   .5929274   .0661529     8.96   0.000      .463237    .7226177
+         cy3 |   .6174043   .0633848     9.74   0.000     .4931408    .7416677
+         cy4 |   .6855184   .0642241    10.67   0.000     .5596095    .8114273
+         cy5 |   .6261007    .064346     9.73   0.000     .4999529    .7522486
+         cy6 |   .6795781    .065044    10.45   0.000     .5520618    .8070944
+         cy7 |   .7282475   .0627833    11.60   0.000     .6051632    .8513318
+         cy8 |   .0227719    .028704     0.79   0.428    -.0335013    .0790451
+         cy9 |   .0488936   .0274704     1.78   0.075    -.0049611    .1027484
+        cy10 |    .000709   .0262467     0.03   0.978    -.0507468    .0521647
+        cy11 |          0  (omitted)
+       _cons |   .7808607    .088444     8.83   0.000     .6074695    .9542519
+------------------------------------------------------------------------------
+
+Parente-Santos Silva test for intra-cluster correlation
+         Ho: No intra-cluster correlation
+
+            T   =  31.911
+         P>|T|  =   0.000
+(est4 stored)
+
+.                 estadd scalar N_clust = $FirmCount
+
+added scalar:
+            e(N_clust) =  1114
+
+. 
+. eststo: qreg2 yl treated kl ml l  cy*, cluster(sheno) q(0.6)
+note: cy11 omitted because of collinearity.
+
+.6 Quantile regression
+R-squared = .91564996
+Number of obs = 4777
+Objective function = .21763583
+
+Standard errors adjusted for 1114 clusters in sheno
+------------------------------------------------------------------------------
+          yl | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+     treated |    .046922   .0247197     1.90   0.058      -.00154     .095384
+          kl |   .0722479   .0124876     5.79   0.000     .0477663    .0967294
+          ml |   .7374101   .0161903    45.55   0.000     .7056697    .7691505
+           l |  -.0584806   .0182562    -3.20   0.001    -.0942712     -.02269
+         cy1 |   .5711195   .0641586     8.90   0.000     .4453389       .6969
+         cy2 |   .6204968   .0641422     9.67   0.000     .4947485    .7462451
+         cy3 |   .6265344    .061185    10.24   0.000     .5065835    .7464853
+         cy4 |   .7037448   .0628847    11.19   0.000     .5804618    .8270279
+         cy5 |   .6484766   .0627225    10.34   0.000     .5255115    .7714417
+         cy6 |   .7277304   .0648371    11.22   0.000     .6006198     .854841
+         cy7 |   .7508691   .0635048    11.82   0.000     .6263704    .8753678
+         cy8 |   .0242614    .031762     0.76   0.445    -.0380069    .0865297
+         cy9 |   .0247736   .0272765     0.91   0.364    -.0287009    .0782481
+        cy10 |  -.0082897   .0296673    -0.28   0.780    -.0664513    .0498719
+        cy11 |          0  (omitted)
+       _cons |   .9730702   .0865813    11.24   0.000     .8033308     1.14281
+------------------------------------------------------------------------------
+
+Parente-Santos Silva test for intra-cluster correlation
+         Ho: No intra-cluster correlation
+
+            T   =  33.407
+         P>|T|  =   0.000
+(est5 stored)
+
+.                 estadd scalar N_clust = $FirmCount
+
+added scalar:
+            e(N_clust) =  1114
+
+. 
+. eststo: qreg2 yl treated kl ml l  cy*, cluster(sheno) q(0.8)
+note: cy11 omitted because of collinearity.
+
+.8 Quantile regression
+R-squared = .91674288
+Number of obs = 4777
+Objective function = .16200986
+
+Standard errors adjusted for 1114 clusters in sheno
+------------------------------------------------------------------------------
+          yl | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+     treated |   .0537341   .0295808     1.82   0.069    -.0042578     .111726
+          kl |    .110742   .0129311     8.56   0.000     .0853909     .136093
+          ml |   .6305119   .0138418    45.55   0.000     .6033755    .6576482
+           l |  -.1083453   .0233297    -4.64   0.000    -.1540824   -.0626083
+         cy1 |   .7290137   .0596544    12.22   0.000     .6120634    .8459639
+         cy2 |   .7841838   .0639975    12.25   0.000     .6587191    .9096484
+         cy3 |    .808689   .0611039    13.23   0.000     .6888971    .9284808
+         cy4 |   .8933921   .0662636    13.48   0.000     .7634847    1.023299
+         cy5 |   .8055596   .0685608    11.75   0.000     .6711487    .9399705
+         cy6 |   .9009921   .0700014    12.87   0.000     .7637569    1.038227
+         cy7 |    .918647   .0646528    14.21   0.000     .7918977    1.045396
+         cy8 |   .1148209   .0380333     3.02   0.003     .0402581    .1893838
+         cy9 |   .0456399   .0310329     1.47   0.141     -.015199    .1064788
+        cy10 |   .0080251   .0327488     0.25   0.806    -.0561777    .0722278
+        cy11 |          0  (omitted)
+       _cons |   1.582277   .1061532    14.91   0.000     1.374168    1.790387
+------------------------------------------------------------------------------
+
+Parente-Santos Silva test for intra-cluster correlation
+         Ho: No intra-cluster correlation
+
+            T   =  33.611
+         P>|T|  =   0.000
+(est6 stored)
+
+.                 estadd scalar N_clust = $FirmCount
+
+added scalar:
+            e(N_clust) =  1114
+
+. 
+. 
+. global  sub1 "OLS\\\vphantom{()}"
+
+. global  sub2 "Quantile\\(0.2)"
+
+. global  sub3 "Quantile\\(0.4)"
+
+. global  sub4 "Quantile\\(0.5)"
+
+. global  sub5 "Quantile\\(0.6)"
+
+. global  sub6 "Quantile\\(0.8)"
+
+. 
+. label   var treated "Dummy: Treated"
+
+. label   var kl          "Log(Capital/labour)"
+
+. label   var ml          "Log(Materials/labour)"
+
+. label   var l           "Log labour"
+
+. 
+. esttab   using "Table2C.tex", cells(b(star fmt(%4.2fc)) se(par(( )) fmt(%4.2fc))) /// 
+>                    label noconstant booktabs collabels(none) ///
+>                    starlevels(* 0.10 ** 0.05 *** 0.01)   ///
+>                    keep(treated kl ml l) ///
+>                    mlabel("\specialcell{$sub1}" "\specialcell{$sub2}" "\specialcell{$sub3}" "\specialcell{$su
+> b4}" "\specialcell{$sub5}" "\specialcell{$sub6}", notitles) /// 
+>                    noobs stats(N N_clust, ///
+>                                                 fmt(%4.0fc %4.0fc) ///
+>                                                 labels("Observations" "Microenterprises")) ///
+>                    replace              
+(output written to Table2C.tex)
+
+. 
+.                    
+. ** CLOSE LOG
+. noi di c(current_time)
+23:44:45
+
+. cap log close

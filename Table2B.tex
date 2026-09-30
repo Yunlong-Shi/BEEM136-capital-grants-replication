@@ -1,0 +1,15 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{6}{c}}
+\toprule
+                    &\multicolumn{1}{c}{(1)}   &\multicolumn{1}{c}{(2)}   &\multicolumn{1}{c}{(3)}   &\multicolumn{1}{c}{(4)}   &\multicolumn{1}{c}{(5)}   &\multicolumn{1}{c}{(6)}   \\
+                    &\specialcell{OLS\\\vphantom{()}}   &\specialcell{Quantile\\(0.2)}   &\specialcell{Quantile\\(0.4)}   &\specialcell{Quantile\\(0.5)}   &\specialcell{Quantile\\(0.6)}   &\specialcell{Quantile\\(0.8)}   \\
+\midrule
+Dummy: Treated      &        0.03   &       -0.01   &        0.03   &        0.03   &        0.03   &        0.07** \\
+                    &      (0.03)   &      (0.04)   &      (0.04)   &      (0.04)   &      (0.03)   &      (0.03)   \\
+\midrule
+Observations        &        4777   &        4777   &        4777   &        4777   &        4777   &        4777   \\
+Microenterprises    &        1114   &        1114   &        1114   &        1114   &        1114   &        1114   \\
+\bottomrule
+\end{tabular}
+}
